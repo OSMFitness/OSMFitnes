@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="stye.css" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <span class="big-circle"></span>
+        <img src="images/home-bg-1.jpg" class="square" alt="" />
+        <div class="form">
+            <div class="contact-info">
+                <h3 class="title">Let's get in touch</h3>
+                <p class="text">
+                    Join OSMFitness Now - Achieve Your Fitness Goals with Expert Coaching and Personalized Plans!<br/>
+                    Fill the Form and Get Tailored Workout Plans and Support on Your WhatsApp Today!
+                </p>
+
+                <div class="social-media">
+                    <p>Connect with us :</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/fitnesswithakash?mibextid=ZbWKwL">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@mrosmakash1Vlog">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://instagram.com/mr_osm_akash1?igshid=YmMyMTA2M2Y=">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/osm-fit/">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <span class="circle one"></span>
+                <span class="circle two"></span>
+
+                <form name="submit-to-google-sheet">
+                    <h3 class="title">Contact us</h3>
+                    <div class="input-container">
+                        <input type="text" name="Name" id="name" class="input" required autocomplete="off"
+                            placeholder="UserName" />
+                    </div>
+                    <div class="input-container">
+                        <input type="email" name="Email" class="input" required autocomplete="off"
+                            placeholder="Email" />
+                    </div>
+                    <div class="input-container">
+                        <input type="text" name="Phone" class="input" required autocomplete="off"
+                            placeholder="Whatsapp Number" pattern="[789][0-9]{9}" />
+                    </div>
+                    <div class="input-container textarea">
+                        <input type="tel" name="Age" class="input" required autocomplete="off"
+                            placeholder="Enter Your Age " />
+                    </div>
+                    <div class="input-container textarea">
+                        <textarea name="Message" class="input" required autocomplete="off"
+                            placeholder="Message"></textarea>
+                    </div>
+
+                    <input type="submit" value="Send" class="btn" />
+                    <span id="msg"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        var name = document.getElementById("name");
+
+        function allLetter(name) {
+            var letters = /^[A-Za-z]+$/;
+            if (name.value.match(letters)) {
+                return true;
+            }
+            else {
+                alert('Username must have alphabet characters only');
+                name.focus();
+                return false;
+            }
+        }
+
+    </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz7n4FmVBzuTaSRvuT5LqCC66F59F3rQaVJRX2hAROVakaS8IIn_-zs_df81zpefc1V/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg");
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    msg.innerHTML = "Message Sent Successfully"
+                    setTimeout(function () {
+                        msg.innerHTML = ""
+                    }, 5000);
+                    form.reset()
+                })
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+</body>
+
+</html>
